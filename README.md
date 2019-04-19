@@ -1,4 +1,5 @@
 # neurobot
+All script in Python 2.7
 Packages for ROS (extract in catkin work space -> catkin_make)
 
 In each package there is pultneurobotX.py file which allows to try robot functions without ROS (open on pc)
