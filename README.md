@@ -13,3 +13,5 @@ neurobot2 - add time, filters, temp // start from python file on RPI
 neurobot3 - same version as neurobot2 but starting with ROS on RPI (rosmaster setup required previosly)
 
 neurobot_virtual - virtual model for gazebo
+
+links http://moorerobots.com/
