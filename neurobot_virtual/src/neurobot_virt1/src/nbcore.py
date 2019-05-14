@@ -61,7 +61,7 @@ def listener():
 		rospy.Subscriber('nebot/sensor/sonar_backl', Range, senseback5)
 		rospy.Subscriber('nebot/sensor/sonar_backr', Range, senseback6)
 
-		ardata = [0, 12000, 1000, sensor1, sensor2, sensor3, sensor4, sensor5, sensor6, 36, 1]
+		ardata = [0, 12000, 1000, sensor3, sensor5, sensor2, sensor1, sensor4, sensor6, 36, 1]
 			
 		#currentI = 0.2
 		#if currentI < 0.1:
@@ -73,7 +73,7 @@ def listener():
 
 		Corestr.data = ardata
 		#rospy.loginfo(Corestr)
-		print(ardata)
+		#print(ardata)
 		pub.publish(Corestr)
 		Tweet.linear.x = ((CommandList[0]+CommandList[1])/100)
 		Tweet.angular.z = ((CommandList[0] - CommandList[1])/50)
