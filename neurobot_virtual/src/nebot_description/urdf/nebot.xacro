@@ -1,0 +1,526 @@
+<?xml version='1.0'?>
+
+<robot name="neurobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="cameraSize" value="0.05"/>
+  <xacro:property name="cameraMass" value="0.1"/>
+
+  <xacro:include filename="$(find nebot_description)/urdf/nebot.gazebo" />
+  <xacro:include filename="$(find nebot_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find nebot_description)/urdf/macros.xacro" />
+
+
+  <link name='chassis'>
+    <pose>0 0 0.1 0 0 0</pose>
+
+    <inertial>
+      <mass value="15.0"/>
+      <origin xyz="0.0 0 0.1" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.5" ixy="0" ixz="0"
+          iyy="0.5" iyz="0"
+          izz="0.5"
+      />
+    </inertial>
+
+    <collision name='collision'>
+      <geometry>
+        <box size=".39 .205 .075"/>
+      </geometry>
+    </collision>
+
+    <visual name='chassis_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size=".39 .205 .075"/>
+      </geometry>
+    </visual>
+
+
+    <collision name='caster_collision'>
+      <origin xyz="0.05 0 0.05" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.3 0.16 0.005"/> <!--less to improve sensors-->
+      </geometry>
+    </collision>
+
+    <visual name='caster_visual'>
+      <origin xyz="0.05 0 0.05" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.3 0.16 0.005"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <collision name='burger_collision'>
+      <origin xyz="0 0 0.16" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.36 0.17 0.005"/>
+      </geometry>
+    </collision>
+    <visual name='burger_visual'>
+      <origin xyz="0 0 0.16" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.36 0.17 0.005"/>
+      </geometry>
+    </visual>
+    <collision name='tunel_collision'>
+      <origin xyz="-0.01 0 0.105" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.04 0.04 0.1"/>
+      </geometry>
+    </collision>
+    <visual name='tunel_visual'>
+      <origin xyz="-0.01 0 0.105" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.04 0.04 0.1"/>
+      </geometry>
+    </visual>
+
+  </link>
+
+  <link name="left_wheel2">
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.1</mu>
+            <mu2>0.1</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="left_wheel2_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="5"/>
+      <inertia
+        ixx=".1" ixy="0.0" ixz="0.0"
+        iyy=".1" iyz="0.0"
+        izz=".1"/>
+    </inertial>
+  </link>
+  <link name="left_wheel3">
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.1</mu>
+            <mu2>0.1</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="left_wheel3_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="5"/>
+      <inertia
+        ixx=".1" ixy="0.0" ixz="0.0"
+        iyy=".1" iyz="0.0"
+        izz=".1"/>
+    </inertial>
+  </link>
+  <link name="right_wheel2">
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.1</mu>
+            <mu2>0.1</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="right_wheel2_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="5"/>
+      <inertia
+        ixx=".1" ixy="0.0" ixz="0.0"
+        iyy=".1" iyz="0.0"
+        izz=".1"/>
+    </inertial>
+  </link>
+  <link name="right_wheel3">
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.1</mu>
+            <mu2>0.1</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="right_wheel3_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="5"/>
+      <inertia
+        ixx=".1" ixy="0.0" ixz="0.0"
+        iyy=".1" iyz="0.0"
+        izz=".1"/>
+    </inertial>
+  </link>
+  <link name="left_wheel">
+    <!--origin xyz="0.1 0.13 0.1" rpy="0 1.5707 1.5707"/-->
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.06"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>10</mu>
+            <mu2>10</mu2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="left_wheel_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <mass value="5"/>
+      <inertia
+        ixx=".1" ixy="0.0" ixz="0.0"
+        iyy=".1" iyz="0.0"
+        izz=".1"/>
+    </inertial>
+  </link>
+
+  <link name="right_wheel">
+    <!--origin xyz="0.1 -0.13 0.1" rpy="0 1.5707 1.5707"/-->
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>10</mu>
+            <mu2>10</mu2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="right_wheel_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.065"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <mass value="5"/>
+      <inertia
+        ixx=".1" ixy="0.0" ixz="0.0"
+        iyy=".1" iyz="0.0"
+        izz=".1"/>
+    </inertial>
+  </link>
+
+
+  <joint type="continuous" name="left_wheel_hinge">
+    <origin xyz="0 0.14 -0.031" rpy="0 0 0"/>
+    <!--origin xyz="0.1 0.13 0" rpy="0 1.5707 1.5707"/-->
+    <child link="left_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+
+  <joint type="continuous" name="right_wheel_hinge">
+    <origin xyz="0 -0.14 -0.031" rpy="0 0 0"/>
+    <!--origin xyz="0.1 -0.13 0" rpy="0 1.5707 1.5707"/-->
+    <child link="right_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+
+
+  <link name="camera">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${cameraSize} ${cameraSize}/2 ${cameraSize}/2"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+    <!--inertial>
+      <mass value="${cameraMass}" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="${cameraMass}" x="${cameraSize}" y="${cameraSize}" z="${cameraSize}" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial-->
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz=".18 0 0.13" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="camera"/>
+  </joint>
+
+  <joint name="wheelleft2_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz=".15 0.14 -0.03" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="left_wheel2"/>
+  </joint>
+  <joint name="wheelleft3_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="-.15 0.14 -0.03" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="left_wheel3"/>
+  </joint>
+  <joint name="wheelright2_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz=".15 -0.14 -0.03" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="right_wheel2"/>
+  </joint>
+  <joint name="wheelright3_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="-.15 -0.14 -0.03" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="right_wheel3"/>
+  </joint>
+
+  <joint name="hokuyo_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz=".10 0 .20" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="hokuyo"/>
+  </joint>
+
+  <!-- Hokuyo Laser -->
+  <link name="hokuyo">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://nebot_description/meshes/hokuyo.dae"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+
+ <!-- sonars down -->
+
+  <joint name="sonar_front_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin rpy="0 0 0" xyz="0.18 0 0.06" />
+    <parent link="chassis"/>
+    <child link="base_sonar_front"/>
+  </joint>
+  <link name="base_sonar_front">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <joint name="sonar_right_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin rpy="0 0 0.523" xyz="0.175 0.06 0.06" />
+    <parent link="chassis"/>
+    <child link="base_sonar_right"/>
+  </joint>
+  <link name="base_sonar_right">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <joint name="sonar_left_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin rpy="0 0 -0.523" xyz="0.175 -0.06 0.06" />
+    <parent link="chassis"/>
+    <child link="base_sonar_left"/>
+  </joint>
+  <link name="base_sonar_left">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+
+
+
+  <joint name="sonar_back_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin rpy="0 0 3.14" xyz="-0.2 0 0.05" />
+    <parent link="chassis"/>
+    <child link="back_sonar_forward"/>
+  </joint>
+  <link name="back_sonar_forward">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="sonar_back2_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin rpy="0 0 2.617" xyz="-0.19 0.06 0.05" />
+    <parent link="chassis"/>
+    <child link="back_sonar_left"/>
+  </joint>
+  <link name="back_sonar_left">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="sonar_back3_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin rpy="0 0 3.663" xyz="-0.19 -0.06 0.05" />
+    <parent link="chassis"/>
+    <child link="back_sonar_right"/>
+  </joint>
+  <link name="back_sonar_right">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.04 0.02"/>
+      </geometry>
+    </visual>
+  </link>
+
+</robot>
+
