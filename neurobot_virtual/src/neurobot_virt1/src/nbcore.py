@@ -75,8 +75,8 @@ def listener():
 		#rospy.loginfo(Corestr)
 		#print(ardata)
 		pub.publish(Corestr)
-		Tweet.linear.x = ((CommandList[0]+CommandList[1])/100)
-		Tweet.angular.z = ((CommandList[0] - CommandList[1])/50)
+		Tweet.linear.x = (float(CommandList[0]+CommandList[1])/100)
+		Tweet.angular.z = (float(CommandList[0] - CommandList[1])/50)
 		pubTwist.publish(Tweet)
 		rate.sleep()
 
