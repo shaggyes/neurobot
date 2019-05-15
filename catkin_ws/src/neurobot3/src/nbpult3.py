@@ -6,6 +6,7 @@ import datetime
 import sys
 #from std_msgs.msg import String
 from std_msgs.msg import Int32MultiArray
+
 b = 0
 hah = [0,0,0,255,0,255,255,0,0, 36, 0] # plus temp and time
 def yellow(data):
@@ -59,6 +60,9 @@ def talker():
     speed.data = []
     rate = rospy.Rate(10) # 10hz
     lol = 0
+    smooth = 1
+    x_smth = 0
+    y_smth = 0
     myfont = pygame.font.SysFont("monospace", 15)
     GOfont = pygame.font.SysFont("monospace", 90)
     GOlabel = GOfont.render(str("GAME OVER"), 1, (5,0,20))
@@ -98,6 +102,11 @@ def talker():
 				lol = 1
 			else:
 				lol = 0	
+		    if event.key == pygame.K_t:
+			if (smooth == 0):
+				smooth = 1
+			else:
+				smooth = 0	
 		    if event.key == pygame.K_BACKSPACE:
 		    	pygame.quit()
 		    	sys.exit()
@@ -107,6 +116,7 @@ def talker():
 		    #conn.send('lft00_rgt00')
 		    x = 0
 		    y = 0
+		    x_smth, y_smth = 0, 0
 
 	if k > 10:
 		k = 10
@@ -117,11 +127,19 @@ def talker():
 
 
 	rospy.Subscriber('neurobotcore', Int32MultiArray, yellow)
-        speed.data = [x*10, y*10, 0, 0, btn]
+	if (smooth == 1):
+		x_smth = round(filter(x, x_smth, 0.1), 1)
+		y_smth = round(filter(y, y_smth, 0.1), 1)
+		gazebofea = myfont.render("TractionCS_G " + str(int(x_smth*10)) +" / " + str(int(y_smth*10)), 1, (150,0,150))
+		screen.blit(gazebofea, (450, 360))
+		speed.data = [int(x_smth*10), int(y_smth*10), 0, 0, btn]
+	else:
+		x_smth, y_smth = 0, 0
+        	speed.data = [int(x*10), int(y*10), 0, 0, btn]
         #rospy.loginfo(yellow.data)
         pub.publish(speed)
-	rospy.loginfo(hah)
-
+	#rospy.loginfo(hah)
+	#rospy.loginfo(speed)
 	ardata = hah
 
 ################## draw part
@@ -172,6 +190,7 @@ def talker():
 
 	kkk = myfont.render("Speed " + str(k*10)+"%", 1, (15,200,15))
 	screen.blit(kkk, (500, 320))
+
 
 	if (btn == True):
 		screen.blit(GOlabel, (50, 180))
